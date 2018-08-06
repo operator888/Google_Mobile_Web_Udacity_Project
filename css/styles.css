@@ -69,6 +69,9 @@ nav h1 a {
   letter-spacing: 10px;
   text-transform: uppercase;
 }
+.header-title-top {
+    padding: 25px 0;
+}
 #breadcrumb {
     padding: 10px 40px 16px;
     list-style: none;
@@ -76,9 +79,6 @@ nav h1 a {
     font-size: 17px;
     margin: 0;
     width: calc(50% - 0px);
-}
-.header-titel-top {
-    padding: 25px 0;
 }
 
 /* Display list items side by side */

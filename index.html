@@ -14,21 +14,21 @@
 <body>
   <header>
     <nav>
-      <h1 class="header-titel-top"><a href="/">Restaurant Reviews</a></h1>
+      <h1 class="header-title-top"><a href="/" tabindex="1">Restaurant Reviews</a></h1>
     </nav>
   </header>
 
   <main id="maincontent">
     <section id="map-container">
-      <div id="map"></div>
+      <div id="map" aria-labelledby="map"></div>
     </section>
     <section>
       <div class="filter-options">
         <h2>Filter Results</h2>
-        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()">
+        <select id="neighborhoods-select" name="neighborhoods" onchange="updateRestaurants()" tabindex="2">
           <option value="all">All Neighborhoods</option>
         </select>
-        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()">
+        <select id="cuisines-select" name="cuisines" onchange="updateRestaurants()" tabindex="3">
           <option value="all">All Cuisines</option>
         </select>
       </div>
@@ -41,7 +41,19 @@
   <script type="application/javascript" charset="utf-8" src="js/dbhelper.js"></script>
   <script type="application/javascript" charset="utf-8" src="js/main.js"></script>
    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBkADi3Yf6chmLVAAuG-CCrv9ha6uZUKXo&libraries=places&callback=initMap"></script>
+   <script type="application/javascript" charset="utf-8" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.3/jquery.min.js"></script>
+   <script type="text/javascript">
+       $(document).ready(function () {
+           setTimeout(function () {
+               $(".leaflet-marker-pane img").each(function (i) { $(this).attr('tabindex', -1); });
+               $(".leaflet-control-zoom a").each(function (i) { $(this).attr('tabindex', -1); });
+               $(".leaflet-control a").each(function (i) { $(this).attr('tabindex', -1); });
 
+               $("#map").attr('tabindex', -1);
+           }, 3000);
+       });
+
+   </script>
   <footer id="footer">
     Copyright (c) 2017 <a href="/"><strong>Restaurant Reviews</strong></a> All Rights Reserved.
   </footer>
