@@ -354,7 +354,7 @@ nav h1 a {
 
 @media screen and (max-width:768px) {
 
-#restaurants-list li h1 {min-height: 48px;}
+#restaurants-list li h2 {min-height: 48px;}
 #restaurants-list li{ width:50%;min-height:385px;}
 #restaurants-list li div{ min-height:414px;}
 
