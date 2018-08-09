@@ -293,14 +293,6 @@ nav h1 a {
 
 
 
-
-
-
-
-
-
-
-
 /*--------------------------------------------------
             RESPONSIVE CSS START
 ---------------------------------------------------*/
@@ -322,9 +314,6 @@ nav h1 a {
 .inside #map-container{ height:90%;}
 
 }
-
-
-
 
 @media screen and (max-width:991px) {
 
