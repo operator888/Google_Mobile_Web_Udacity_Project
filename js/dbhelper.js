@@ -8,11 +8,12 @@ class DBHelper {
    * Change this to restaurants.json file location on your server.
    */
   static get DATABASE_URL() {
-	  
-	   const port = 8000 // Change this to your server port
-    return `http://127.0.0.1:8000/js/restaurants.json`;
-	  
-    
+
+	   // const port = 8000 // Change this to your server port
+     //return `http://127.0.0.1:8000/js/restaurants.json`;
+    return `http://localhost:1337/restaurants`;
+
+
   }
 
   /**
@@ -24,7 +25,8 @@ class DBHelper {
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
-        const restaurants = json.restaurants;
+        //const restaurants = json.restaurants;
+        const restaurants = json;
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
         const error = (`Request failed. Returned status of ${xhr.status}`);
@@ -146,26 +148,27 @@ class DBHelper {
    * Restaurant page URL.
    */
   static urlForRestaurant(restaurant) {
-    return (`http://127.0.0.1:8000/restaurant.html?id=${restaurant.id}`);
+    //return (`http://127.0.0.1:8000/restaurant.html?id=${restaurant.id}`);
+    return (`restaurant.html?id=${restaurant.id}`);
   }
 
   /**
    * Restaurant image URL.
    */
   static imageUrlForRestaurant(restaurant) {
- 
-    return (`http://127.0.0.1:8000/img/${restaurant.photograph}`);
- 
+
+    //return (`http://127.0.0.1:8000/img/${restaurant.photograph}`);
+    return (`img/${restaurant.photograph}`+ ".jpg");
     //return (`/restaurant/img/${restaurant.photograph}`);
 	// return (``http://127.0.0.1:8000/img/${restaurant.photograph}`);
- 
+
   }
 
   /**
    * Map marker for a restaurant.
    */
    static mapMarkerForRestaurant(restaurant, map) {
-    // https://leafletjs.com/reference-1.3.0.html#marker  
+    // https://leafletjs.com/reference-1.3.0.html#marker
     const marker = new L.marker([restaurant.latlng.lat, restaurant.latlng.lng],
       {title: restaurant.name,
       alt: restaurant.name,
@@ -173,7 +176,7 @@ class DBHelper {
       })
       marker.addTo(newMap);
     return marker;
-  } 
+  }
   /* static mapMarkerForRestaurant(restaurant, map) {
     const marker = new google.maps.Marker({
       position: restaurant.latlng,
@@ -186,4 +189,3 @@ class DBHelper {
   } */
 
 }
-
