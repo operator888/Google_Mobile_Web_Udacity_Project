@@ -171,7 +171,7 @@ createRestaurantHTML = (restaurant, tabindex_cnt) => {
   div.append(image);
 
   const name = document.createElement('h2');
-  name.tabIndex = tabindex_cnt;
+  //name.tabIndex = tabindex_cnt;
   name.innerHTML = restaurant.name;
   div.append(name);
 
@@ -180,12 +180,12 @@ createRestaurantHTML = (restaurant, tabindex_cnt) => {
   div.append(neighborhood);
 
   const address = document.createElement('p');
-  address.tabIndex = tabindex_cnt + 1;
+  //address.tabIndex = tabindex_cnt + 1;
   address.innerHTML = restaurant.address;
   div.append(address);
 
   const more = document.createElement('a');
-  more.tabIndex = tabindex_cnt + 2;
+  //more.tabIndex = tabindex_cnt + 2;
   more.innerHTML = 'View Details';
   more.href = DBHelper.urlForRestaurant(restaurant);
   div.append(more)

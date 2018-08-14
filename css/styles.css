@@ -289,7 +289,9 @@ nav h1 a {
   color: #666;
 }
 
-
+.filter-options label {
+    color:#fff;
+}
 
 
 
