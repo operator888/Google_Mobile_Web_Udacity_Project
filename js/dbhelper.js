@@ -158,11 +158,18 @@ class DBHelper {
   static imageUrlForRestaurant(restaurant) {
 
     //return (`http://127.0.0.1:8000/img/${restaurant.photograph}`);
-    return (`img/${restaurant.photograph}`+ ".jpg");
+    return (`img/${restaurant.photograph}`+ "B.jpg");
     //return (`/restaurant/img/${restaurant.photograph}`);
 	// return (``http://127.0.0.1:8000/img/${restaurant.photograph}`);
 
   }
+
+    /** Restaurant image URL */
+    static imageSrcsetForRestaurant(restaurant) {
+      //<img srcset="1.jpg 1920w, 1B.jpg 1400w" src="1C.jpg" />
+
+      return (`img/${restaurant.photograph}` + ".jpg 1920w," + `img/${restaurant.photograph}` + "C.jpg 1400w,");
+    }
 
   /**
    * Map marker for a restaurant.
