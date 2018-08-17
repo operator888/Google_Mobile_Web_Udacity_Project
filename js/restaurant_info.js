@@ -4,7 +4,7 @@ var newMap;
 /**
  * Initialize map as soon as the page is loaded.
  */
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', (event) => {  
   initMap();
 });
 
@@ -15,7 +15,7 @@ initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
       console.error(error);
-    } else {
+    } else {      
       self.newMap = L.map('map', {
         center: [restaurant.latlng.lat, restaurant.latlng.lng],
         zoom: 16,
@@ -27,14 +27,14 @@ initMap = () => {
         attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
           '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
           'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-        id: 'mapbox.streets'
+        id: 'mapbox.streets'    
       }).addTo(newMap);
       fillBreadcrumb();
       DBHelper.mapMarkerForRestaurant(self.restaurant, self.newMap);
     }
   });
-}
-
+}  
+ 
 /* window.initMap = () => {
   fetchRestaurantFromURL((error, restaurant) => {
     if (error) { // Got an error!
@@ -70,9 +70,20 @@ fetchRestaurantFromURL = (callback) => {
         console.error(error);
         return;
       }
-      fillRestaurantHTML();
+     // fillRestaurantHTML();
       callback(null, restaurant)
     });
+
+    DBHelper.fetchRestaurantReviewsById(id, (error, reviews) => {
+        self.reviews = reviews;
+        if (!reviews) {
+            console.error(error);
+            return;
+        }
+        fillRestaurantHTML();
+       // callback(null, reviews)
+    });
+     
   }
 }
 
@@ -84,7 +95,7 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
   name.innerHTML = restaurant.name;
 
   const address = document.getElementById('restaurant-address');
-  address.tabIndex = 2;
+ // address.tabIndex = 2;
   address.innerHTML = restaurant.address;
 
   const image = document.getElementById('restaurant-img');
@@ -106,8 +117,8 @@ fillRestaurantHTML = (restaurant = self.restaurant) => {
  * Create restaurant operating hours HTML table and add it to the webpage.
  */
 fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => {
-  const hours = document.getElementById('restaurant-hours');
-  hours.tabIndex = 3;
+    const hours = document.getElementById('restaurant-hours');
+   // hours.tabIndex = 3;
   for (let key in operatingHours) {
     const row = document.createElement('tr');
 
@@ -126,7 +137,7 @@ fillRestaurantHoursHTML = (operatingHours = self.restaurant.operating_hours) => 
 /**
  * Create all reviews HTML and add them to the webpage.
  */
-fillReviewsHTML = (reviews = self.restaurant.reviews) => {
+fillReviewsHTML = (reviews = self.reviews) => {
   const container = document.getElementById('reviews-container');
   const title = document.createElement('h2');
   title.innerHTML = 'Reviews';
@@ -154,9 +165,9 @@ createReviewHTML = (review) => {
   name.innerHTML = review.name;
   li.appendChild(name);
 
-  const date = document.createElement('p');
-  date.innerHTML = review.date;
-  li.appendChild(date);
+ // const date = document.createElement('p');
+  //date.innerHTML = review.createdAt;
+  //li.appendChild(date);
 
   const rating = document.createElement('p');
   rating.innerHTML = `Rating: ${review.rating}`;
@@ -178,6 +189,22 @@ fillBreadcrumb = (restaurant=self.restaurant) => {
   li.innerHTML = restaurant.name;
   breadcrumb.appendChild(li);
 }
+
+/*
+* Submit Review form to API 
+*/
+
+$("#btn-submit").click(function(){    
+    if($("#name").val() != "" && $("#rating").val() != "" && $("#comments").val() != "") {
+        DBHelper.postRestaurantReviewsById(getParameterByName('id'), $("#name").val(), $("#rating").val(), $("#comments").val());
+         $("#name").val("");
+         $("#rating").val("");
+         $("#comments").val("");
+         $(".alert-success").show();
+         $("#name").focus();        
+        return false;
+    }
+});
 
 /**
  * Get a parameter by name from page URL.
